@@ -1,407 +1,250 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import Link from 'next/link'
 import { 
-  HeartIcon,
-  AcademicCapIcon,
-  SparklesIcon,
-  EnvelopeIcon,
+  EnvelopeIcon, 
+  CalendarIcon, 
   MapPinIcon,
-  ClockIcon
+  UserGroupIcon,
+  HeartIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline'
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
-  }
-}
-
-// Sample team data
-const teamMembers = [
-  {
-    id: 1,
-    name: 'Amara Thompson',
-    role: 'Co-Founder & Creative Director',
-    bio: 'Senior studying Art Practice with a focus on digital media and community engagement.',
-    image: '/api/placeholder/300/300'
-  },
-  {
-    id: 2,
-    name: 'Jamal Rodriguez',
-    role: 'Co-Founder & Operations Lead',
-    bio: 'Graduate student in Education, passionate about creating inclusive spaces for artistic expression.',
-    image: '/api/placeholder/300/300'
-  },
-  {
-    id: 3,
-    name: 'Zuri Williams',
-    role: 'Events Coordinator',
-    bio: 'Junior in Communications, specializing in event planning and community outreach.',
-    image: '/api/placeholder/300/300'
-  },
-  {
-    id: 4,
-    name: 'Marcus Johnson',
-    role: 'Gallery Curator',
-    bio: 'PhD candidate in Art History with expertise in contemporary Black artistic movements.',
-    image: '/api/placeholder/300/300'
-  }
-]
-
-const values = [
-  {
-    icon: HeartIcon,
-    title: 'Community',
-    description: 'Building a supportive network where Black creatives can thrive, collaborate, and celebrate their unique perspectives.'
-  },
-  {
-    icon: AcademicCapIcon,
-    title: 'Excellence',
-    description: 'Maintaining the highest standards in artistic practice while fostering growth and learning opportunities.'
-  },
-  {
-    icon: SparklesIcon,
-    title: 'Innovation',
-    description: 'Pushing boundaries and exploring new forms of creative expression that challenge and inspire.'
-  }
-]
-
 export default function AboutPage() {
-  const [heroRef, heroInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [storyRef, storyInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [valuesRef, valuesInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [teamRef, teamInView] = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [contactRef, contactInView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [email, setEmail] = useState('')
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+
+  const handleMailingListSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle mailing list signup
+    console.log('Mailing list signup:', email)
+    setEmail('')
+  }
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle contact form submission
+    console.log('Contact form:', contactForm)
+    setContactForm({ name: '', email: '', message: '' })
+  }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#08080a]">
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen flex items-center bg-gradient-psychedelic-main relative overflow-hidden grain-texture">
-        <div className="absolute inset-0 psychedelic-grid opacity-30" />
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-electric-glow opacity-20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-gradient-teal-swirl opacity-25 rounded-full blur-2xl animate-pulse-slow-delayed" />
-        
-        <div className="container mx-auto px-6 lg:px-8 z-10">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={heroInView ? "visible" : "hidden"}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <motion.h1 
-              variants={itemVariants}
-              className="text-5xl lg:text-7xl font-bold text-psychedelic-soft-white mb-8 text-curved-serif"
-            >
-              About{' '}
-              <span className="text-psychedelic-glow retro-glow">Our</span>{' '}
-              <span className="text-psychedelic-neon-mint">Collective</span>
-            </motion.h1>
-            <motion.p 
-              variants={itemVariants}
-              className="text-xl lg:text-2xl text-psychedelic-soft-white/90 max-w-4xl mx-auto leading-relaxed"
-            >
-              We are a vibrant community of Black creatives at Stanford University, dedicated to celebrating, supporting, and amplifying diverse voices in the arts.
-            </motion.p>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              About <span className="text-[#c0b6e5]">Stanford Black Creative Collective</span>
+            </h1>
+            <p className="text-xl text-[#c0b6e5] max-w-3xl mx-auto">
+              Celebrating and amplifying Black creativity, culture, and artistic excellence at Stanford University
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Our Story Section */}
-      <section ref={storyRef} className="py-20 bg-psychedelic-deep-eggplant relative">
-        <div className="absolute inset-0 grain-texture" />
-        <div className="container mx-auto px-6 lg:px-8 z-10 relative">
+      {/* Photos Grid */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={storyInView ? "visible" : "hidden"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                Our <span className="text-psychedelic-electric-lavender">Story</span>
-              </h2>
-            </motion.div>
-
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div variants={itemVariants} className="space-y-6">
-                <p className="text-lg text-psychedelic-soft-white/90 leading-relaxed">
-                  Founded in 2020, the Stanford Black Creative Collective emerged from a shared vision: to create a space where Black artists, writers, musicians, designers, and creators could come together to celebrate their heritage while pushing the boundaries of contemporary art.
-                </p>
-                <p className="text-lg text-psychedelic-soft-white/90 leading-relaxed">
-                  What started as informal gatherings in dorm rooms has grown into a thriving community that hosts exhibitions, workshops, performances, and collaborative projects that showcase the incredible diversity and talent within Stanford's Black creative community.
-                </p>
-                <p className="text-lg text-psychedelic-soft-white/90 leading-relaxed">
-                  Today, we continue to foster connections, provide platforms for artistic expression, and ensure that Black voices remain at the forefront of Stanford's cultural landscape.
-                </p>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="relative">
-                <div className="relative w-full h-96 bg-gradient-teal-swirl rounded-3xl shadow-neon-glow retro-glow">
-                  <div className="absolute inset-4 bg-gradient-electric-glow rounded-2xl opacity-60" />
-                  <div className="absolute inset-8 bg-gradient-dusty-violet rounded-xl opacity-80" />
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Our Values Section */}
-      <section ref={valuesRef} className="py-20 bg-psychedelic-faint-violet relative">
-        <div className="absolute inset-0 grain-texture" />
-        <div className="container mx-auto px-6 lg:px-8 z-10 relative">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={valuesInView ? "visible" : "hidden"}
-          >
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                Our <span className="text-psychedelic-neon-mint">Values</span>
-              </h2>
-            </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {values.map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  variants={itemVariants}
-                  className="bg-psychedelic-deep-eggplant/80 backdrop-blur-sm rounded-3xl p-8 shadow-psychedelic card-hover y2k-blur"
-                >
-                  <div className="w-20 h-20 bg-gradient-electric-glow rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-neon-glow">
-                    <value.icon className="w-10 h-10 text-psychedelic-deep-eggplant" />
+            {/* Placeholder images - replace with actual photos */}
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="group relative overflow-hidden rounded-2xl shadow-lg">
+                <div className="aspect-w-16 aspect-h-12 bg-gradient-to-br from-[#7aa9c0] to-[#c0b6e5] rounded-2xl flex items-center justify-center">
+                  <div className="text-white text-center">
+                    <UserGroupIcon className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                    <p className="text-lg font-medium">Event Photo {i}</p>
+                    <p className="text-sm opacity-80">Spring 2024</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-psychedelic-soft-white mb-4 text-center text-curved-serif">
-                    {value.title}
-                  </h3>
-                  <p className="text-psychedelic-soft-white/80 leading-relaxed text-center">
-                    {value.description}
+                </div>
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Mission Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#44334a]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Our Mission
+              </h2>
+              <p className="text-lg text-[#c0b6e5] mb-6">
+                We are a vibrant community dedicated to fostering Black creativity and artistic expression at Stanford. 
+                Through events, workshops, and collaborative projects, we create spaces where Black students can showcase 
+                their talents and build meaningful connections.
+              </p>
+              <div className="flex items-center space-x-4">
+                <HeartIcon className="w-8 h-8 text-[#c0b6e5]" />
+                <span className="text-lg font-medium text-white">Building Community Through Art</span>
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="bg-gradient-to-br from-[#7aa9c0] to-[#c0b6e5] rounded-2xl p-8 text-[#08080a]">
+                <SparklesIcon className="w-12 h-12 mb-4" />
+                <h3 className="text-2xl font-bold mb-4">Join Our Community</h3>
+                <p className="text-lg mb-6">
+                  Stay connected with our latest events, workshops, and creative opportunities.
+                </p>
+                <form onSubmit={handleMailingListSubmit} className="space-y-4">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-[#08080a] text-[#c0b6e5] px-6 py-3 rounded-lg font-semibold hover:bg-[#44334a] transition-colors"
+                  >
+                    Join Our Mailing List
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form and Info */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl font-bold text-white mb-6">Tap in.</h2>
+              <form onSubmit={handleContactSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-[#c0b6e5] mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    className="w-full px-4 py-3 border border-[#4f8489] rounded-lg focus:ring-2 focus:ring-[#c0b6e5] focus:border-transparent bg-[#44334a] text-white"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-[#c0b6e5] mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    className="w-full px-4 py-3 border border-[#4f8489] rounded-lg focus:ring-2 focus:ring-[#c0b6e5] focus:border-transparent bg-[#44334a] text-white"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-[#c0b6e5] mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    className="w-full px-4 py-3 border border-[#4f8489] rounded-lg focus:ring-2 focus:ring-[#c0b6e5] focus:border-transparent bg-[#44334a] text-white"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-[#c0b6e5] text-[#08080a] px-6 py-3 rounded-lg font-semibold hover:bg-[#ac84ac] transition-colors"
+                >
+                  Send Message
+                </button>
+              </form>
+            </motion.div>
+
+            {/* Floating Info Table */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="bg-[#44334a] rounded-2xl shadow-xl p-8 border border-[#4f8489]">
+                <h3 className="text-2xl font-bold text-white mb-6">Contact & Meeting Details</h3>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <EnvelopeIcon className="w-6 h-6 text-[#c0b6e5] mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-white">Email</h4>
+                      <p className="text-[#7aa9c0]">sbcc@stanford.edu</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <CalendarIcon className="w-6 h-6 text-[#c0b6e5] mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-white">Meeting Times</h4>
+                      <p className="text-[#7aa9c0]">Every Tuesday at 7:00 PM</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <MapPinIcon className="w-6 h-6 text-[#c0b6e5] mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-white">Location</h4>
+                      <p className="text-[#7aa9c0]">Black Community Services Center</p>
+                      <p className="text-[#7aa9c0]">Stanford University</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-8 p-4 bg-[#4f8489] rounded-lg">
+                  <p className="text-sm text-[#08080a]">
+                    <strong>Note:</strong> All students are welcome to attend our meetings and events, 
+                    regardless of their background or experience level.
                   </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section ref={teamRef} className="py-20 bg-psychedelic-dusty-plum relative">
-        <div className="absolute inset-0 grain-texture" />
-        <div className="container mx-auto px-6 lg:px-8 z-10 relative">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={teamInView ? "visible" : "hidden"}
-          >
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                Meet Our <span className="text-psychedelic-electric-lavender">Team</span>
-              </h2>
-              <p className="text-xl text-psychedelic-soft-white/90 max-w-3xl mx-auto">
-                The passionate individuals driving our collective forward
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={member.id}
-                  variants={itemVariants}
-                  className="bg-psychedelic-deep-eggplant/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-psychedelic card-hover y2k-blur"
-                >
-                  <div className="h-64 bg-gradient-creative relative">
-                    <div className="absolute inset-0 bg-gradient-electric-glow opacity-50" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-psychedelic-soft-white mb-2 text-curved-serif">
-                      {member.name}
-                    </h3>
-                    <p className="text-psychedelic-electric-lavender font-semibold mb-3">
-                      {member.role}
-                    </p>
-                    <p className="text-psychedelic-soft-white/80 text-sm leading-relaxed">
-                      {member.bio}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section ref={contactRef} id="contact" className="py-20 bg-gradient-psychedelic-main relative">
-        <div className="absolute inset-0 grain-texture" />
-        <div className="absolute top-0 left-0 w-full h-full psychedelic-grid opacity-20" />
-        
-        <div className="container mx-auto px-6 lg:px-8 z-10 relative">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={contactInView ? "visible" : "hidden"}
-          >
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                Get <span className="text-psychedelic-neon-mint">In Touch</span>
-              </h2>
-              <p className="text-xl text-psychedelic-soft-white/90 max-w-3xl mx-auto">
-                Ready to join our creative community? We'd love to hear from you.
-              </p>
-            </motion.div>
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              <motion.div variants={itemVariants} className="space-y-8">
-                <div className="bg-psychedelic-deep-eggplant/80 backdrop-blur-sm rounded-3xl p-8 shadow-psychedelic y2k-blur">
-                  <h3 className="text-2xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                    Contact Information
-                  </h3>
-                  
-                  <div className="space-y-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-electric-glow rounded-full flex items-center justify-center shadow-neon-glow">
-                        <EnvelopeIcon className="w-6 h-6 text-psychedelic-deep-eggplant" />
-                      </div>
-                      <div>
-                        <p className="text-psychedelic-soft-white font-semibold">Email</p>
-                        <p className="text-psychedelic-soft-white/80">blackcreative@stanford.edu</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-teal-swirl rounded-full flex items-center justify-center shadow-neon-glow">
-                        <MapPinIcon className="w-6 h-6 text-psychedelic-deep-eggplant" />
-                      </div>
-                      <div>
-                        <p className="text-psychedelic-soft-white font-semibold">Location</p>
-                        <p className="text-psychedelic-soft-white/80">Stanford University Campus</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-dusty-violet rounded-full flex items-center justify-center shadow-neon-glow">
-                        <ClockIcon className="w-6 h-6 text-psychedelic-soft-white" />
-                      </div>
-                      <div>
-                        <p className="text-psychedelic-soft-white font-semibold">Office Hours</p>
-                        <p className="text-psychedelic-soft-white/80">Tuesdays & Thursdays, 2-4 PM</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-8">
-                    <a
-                      href="https://www.instagram.com/blackcreativeco/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center btn-secondary"
-                    >
-                      Follow Us on Instagram
-                    </a>
-                  </div>
                 </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <div className="bg-psychedelic-deep-eggplant/80 backdrop-blur-sm rounded-3xl p-8 shadow-psychedelic y2k-blur">
-                  <h3 className="text-2xl font-bold text-psychedelic-soft-white mb-6 text-curved-serif">
-                    Join Our Community
-                  </h3>
-                  
-                  <div className="space-y-6">
-                    <p className="text-psychedelic-soft-white/90">
-                      Whether you're an artist, supporter, or simply curious about our community, there are many ways to get involved:
-                    </p>
-                    
-                    <ul className="space-y-4">
-                      {[
-                        'Attend our monthly showcases and exhibitions',
-                        'Participate in collaborative art projects',
-                        'Join our workshops and skill-sharing sessions',
-                        'Submit your work to our digital gallery',
-                        'Volunteer for events and community outreach'
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-start space-x-3">
-                          <div className="w-6 h-6 bg-gradient-electric-glow rounded-full flex items-center justify-center mt-0.5 shadow-neon-glow">
-                            <span className="text-psychedelic-deep-eggplant text-sm font-bold">•</span>
-                          </div>
-                          <span className="text-psychedelic-soft-white/90">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="pt-6">
-                      <Link href="/events" className="btn-primary inline-flex items-center">
-                        View Upcoming Events
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-psychedelic-deep-eggplant text-psychedelic-soft-white py-16 relative">
-        <div className="absolute inset-0 grain-texture" />
-        <div className="container mx-auto px-6 lg:px-8 z-10 relative">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4 text-curved-serif text-psychedelic-glow">
-                Stanford Black Creative Collective
-              </h3>
-              <p className="text-psychedelic-soft-white/80 leading-relaxed">
-                Celebrating Black creativity and culture at Stanford University
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-curved-serif">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><Link href="/" className="text-psychedelic-soft-white/80 hover:text-psychedelic-electric-lavender transition-colors">Home</Link></li>
-                <li><Link href="/events" className="text-psychedelic-soft-white/80 hover:text-psychedelic-electric-lavender transition-colors">Events</Link></li>
-                <li><Link href="/gallery" className="text-psychedelic-soft-white/80 hover:text-psychedelic-electric-lavender transition-colors">Gallery</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-curved-serif">Connect</h4>
-              <a
-                href="https://www.instagram.com/blackcreativeco/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 bg-gradient-electric-glow rounded-full flex items-center justify-center text-psychedelic-deep-eggplant hover:shadow-neon-glow transition-all duration-300 retro-glow"
-                aria-label="Instagram"
-              >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.321-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.42-3.321c.873-.873 2.024-1.297 3.321-1.297s2.448.424 3.321 1.297c.93.873 1.42 2.024 1.42 3.321s-.49 2.448-1.42 3.244c-.873.807-2.024 1.297-3.321 1.297zm7.598-10.652c-.424 0-.807-.163-1.103-.49-.296-.326-.424-.709-.424-1.133 0-.424.128-.807.424-1.103.296-.326.679-.49 1.103-.49.424 0 .807.164 1.103.49.296.296.424.679.424 1.103 0 .424-.128.807-.424 1.133-.296.327-.679.49-1.103.49z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-          <div className="border-t border-psychedelic-soft-white/20 pt-8 text-center text-psychedelic-soft-white/60">
-            <p>&copy; 2024 Stanford Black Creative Collective. All rights reserved.</p>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   )
 }

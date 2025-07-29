@@ -31,12 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
-        <div className="flex min-h-screen">
-          <Navigation />
-          <main className="flex-1 ml-0 lg:ml-[280px] transition-all duration-300">
-            {children}
-          </main>
-        </div>
+        <Navigation />
+        <main className="pt-16">
+          {children}
+        </main>
       </body>
     </html>
   )

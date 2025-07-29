@@ -11,7 +11,7 @@ import {
   PhotoIcon,
   Bars3Icon,
   XMarkIcon,
-  PaletteIcon
+  ChevronDownIcon
 } from '@heroicons/react/24/outline'
 import { 
   HomeIcon as HomeIconSolid, 
@@ -21,12 +21,6 @@ import {
 } from '@heroicons/react/24/solid'
 
 const navigationItems = [
-  {
-    name: 'Home',
-    href: '/',
-    icon: HomeIcon,
-    iconSolid: HomeIconSolid,
-  },
   {
     name: 'About Us',
     href: '/about',
@@ -38,6 +32,7 @@ const navigationItems = [
     href: '/events',
     icon: CalendarIcon,
     iconSolid: CalendarIconSolid,
+    hasDropdown: true,
   },
   {
     name: 'Gallery',
@@ -62,159 +57,234 @@ const socialLinks = [
 export default function Navigation() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [eventsDropdownOpen, setEventsDropdownOpen] = useState(false)
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
+  const toggleEventsDropdown = () => {
+    setEventsDropdownOpen(!eventsDropdownOpen)
+  }
+
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-psychedelic-main text-psychedelic-soft-white shadow-2xl hidden lg:flex flex-col grain-texture">
-        {/* Logo Section */}
-        <div className="p-8 border-b border-white/10">
-          <Link href="/" className="flex items-center group">
-            <div className="w-12 h-12 bg-gradient-teal-swirl rounded-xl flex items-center justify-center mr-4 shadow-neon-glow group-hover:-translate-y-1 transition-all duration-300 retro-glow">
-              <PaletteIcon className="w-7 h-7 text-psychedelic-deep-eggplant" />
-            </div>
-            <span className="text-2xl font-bold tracking-tight text-curved-serif text-psychedelic-glow">SBCC</span>
-          </Link>
-        </div>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08080a] shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-[#7aa9c0] to-[#c0b6e5] rounded-lg flex items-center justify-center hover:from-[#c0b6e5] hover:to-[#ac84ac] transition-all duration-300 cursor-pointer">
+                <span className="text-[#08080a] font-bold text-lg">BCC</span>
+              </div>
+            </Link>
 
-        {/* Navigation Menu */}
-        <div className="flex-1 py-8">
-          <ul className="space-y-2">
-            {navigationItems.map((item) => {
-              const isActive = pathname === item.href
-              const Icon = isActive ? item.iconSolid : item.icon
-              
-              return (
-                <li key={item.name}>
+            {/* Desktop Navigation Items */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navigationItems.map((item) => {
+                const isActive = pathname === item.href
+                const Icon = isActive ? item.iconSolid : item.icon
+                
+                if (item.hasDropdown) {
+                  return (
+                    <div key={item.name} className="relative">
+                      <button
+                        onClick={toggleEventsDropdown}
+                        className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                          isActive
+                            ? 'text-[#c0b6e5] bg-[#44334a]'
+                            : 'text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#44334a]'
+                        }`}
+                      >
+                        <Icon className="w-5 h-5 mr-2" />
+                        {item.name}
+                        <ChevronDownIcon className="w-4 h-4 ml-1" />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {eventsDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute top-full left-0 mt-2 w-48 bg-[#44334a] rounded-md shadow-lg py-1 z-50"
+                          >
+                            <Link
+                              href="/events/upcoming"
+                              className="block px-4 py-2 text-sm text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#4f8489]"
+                              onClick={() => setEventsDropdownOpen(false)}
+                            >
+                              Upcoming Events
+                            </Link>
+                            <Link
+                              href="/events/past"
+                              className="block px-4 py-2 text-sm text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#4f8489]"
+                              onClick={() => setEventsDropdownOpen(false)}
+                            >
+                              Past Events
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                }
+                
+                return (
                   <Link
+                    key={item.name}
                     href={item.href}
-                    className={`flex items-center px-6 py-4 mx-4 rounded-r-3xl transition-all duration-300 group relative ${
+                    className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive
-                        ? 'bg-white/10 text-white transform translate-x-2 nav-link-active'
-                        : 'text-white/80 hover:text-white hover:bg-white/5 hover:translate-x-2'
+                        ? 'text-[#c0b6e5] bg-[#44334a]'
+                        : 'text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#44334a]'
                     }`}
                   >
-                    <Icon className="w-6 h-6 mr-4" />
-                    <span className="font-medium">{item.name}</span>
+                    <Icon className="w-5 h-5 mr-2" />
+                    {item.name}
                   </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+                )
+              })}
+            </div>
 
-        {/* Social Links */}
-        <div className="p-6 border-t border-white/10">
-          <div className="flex justify-center space-x-4">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-creative-gold hover:-translate-y-1 transition-all duration-300"
-                aria-label={social.name}
-              >
-                {social.icon}
-              </a>
-            ))}
+            {/* Social Links */}
+            <div className="hidden md:flex items-center space-x-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className="w-8 h-8 rounded-full bg-[#44334a] flex items-center justify-center text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#4f8489] transition-colors"
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={toggleMobileMenu}
+              className="md:hidden w-10 h-10 bg-[#44334a] rounded-lg flex items-center justify-center text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#4f8489] transition-colors"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? (
+                <XMarkIcon className="w-6 h-6" />
+              ) : (
+                <Bars3Icon className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile Navigation Toggle */}
-      <button
-        onClick={toggleMobileMenu}
-        className="fixed top-6 left-6 z-50 lg:hidden w-12 h-12 bg-gradient-psychedelic-main rounded-xl flex items-center justify-center text-psychedelic-soft-white shadow-neon-glow hover:shadow-xl transition-all duration-300 retro-glow"
-        aria-label="Toggle navigation menu"
-      >
-        {isMobileMenuOpen ? (
-          <XMarkIcon className="w-6 h-6" />
-        ) : (
-          <Bars3Icon className="w-6 h-6" />
-        )}
-      </button>
+        {/* Mobile Navigation Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-40 md:hidden bg-black bg-opacity-50"
+                onClick={toggleMobileMenu}
+              />
 
-      {/* Mobile Navigation Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 lg:hidden mobile-nav-overlay"
-              onClick={toggleMobileMenu}
-            />
-
-            {/* Mobile Menu */}
-            <motion.nav
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-psychedelic-main text-psychedelic-soft-white shadow-2xl lg:hidden flex flex-col grain-texture"
-            >
-              {/* Logo Section */}
-              <div className="p-8 border-b border-white/10 mt-16">
-                <Link href="/" className="flex items-center group" onClick={toggleMobileMenu}>
-                  <div className="w-12 h-12 bg-gradient-gold rounded-xl flex items-center justify-center mr-4 shadow-lg group-hover:-translate-y-1 transition-all duration-300">
-                    <PaletteIcon className="w-7 h-7 text-white" />
-                  </div>
-                  <span className="text-2xl font-bold tracking-tight">SBCC</span>
-                </Link>
-              </div>
-
-              {/* Navigation Menu */}
-              <div className="flex-1 py-8">
-                <ul className="space-y-2">
+              {/* Mobile Menu */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="absolute top-full left-0 right-0 z-50 bg-[#08080a] shadow-lg md:hidden"
+              >
+                <div className="px-4 py-6 space-y-4">
                   {navigationItems.map((item) => {
                     const isActive = pathname === item.href
                     const Icon = isActive ? item.iconSolid : item.icon
                     
+                    if (item.hasDropdown) {
+                      return (
+                        <div key={item.name}>
+                          <button
+                            onClick={toggleEventsDropdown}
+                            className={`flex items-center w-full px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                              isActive
+                                ? 'text-[#c0b6e5] bg-[#44334a]'
+                                : 'text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#44334a]'
+                            }`}
+                          >
+                            <Icon className="w-5 h-5 mr-2" />
+                            {item.name}
+                            <ChevronDownIcon className="w-4 h-4 ml-auto" />
+                          </button>
+                          
+                          <AnimatePresence>
+                            {eventsDropdownOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="ml-6 mt-2 space-y-2"
+                              >
+                                <Link
+                                  href="/events/upcoming"
+                                  className="block px-3 py-2 text-sm text-[#7aa9c0] hover:text-[#c0b6e5]"
+                                  onClick={toggleMobileMenu}
+                                >
+                                  Upcoming Events
+                                </Link>
+                                <Link
+                                  href="/events/past"
+                                  className="block px-3 py-2 text-sm text-[#7aa9c0] hover:text-[#c0b6e5]"
+                                  onClick={toggleMobileMenu}
+                                >
+                                  Past Events
+                                </Link>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      )
+                    }
+                    
                     return (
-                      <li key={item.name}>
-                        <Link
-                          href={item.href}
-                          onClick={toggleMobileMenu}
-                          className={`flex items-center px-6 py-4 mx-4 rounded-r-3xl transition-all duration-300 group relative ${
-                            isActive
-                              ? 'bg-white/10 text-white transform translate-x-2 nav-link-active'
-                              : 'text-white/80 hover:text-white hover:bg-white/5 hover:translate-x-2'
-                          }`}
-                        >
-                          <Icon className="w-6 h-6 mr-4" />
-                          <span className="font-medium">{item.name}</span>
-                        </Link>
-                      </li>
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={toggleMobileMenu}
+                        className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                          isActive
+                            ? 'text-[#c0b6e5] bg-[#44334a]'
+                            : 'text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#44334a]'
+                        }`}
+                      >
+                        <Icon className="w-5 h-5 mr-2" />
+                        {item.name}
+                      </Link>
                     )
                   })}
-                </ul>
-              </div>
-
-              {/* Social Links */}
-              <div className="p-6 border-t border-white/10">
-                <div className="flex justify-center space-x-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-creative-gold hover:-translate-y-1 transition-all duration-300"
-                      aria-label={social.name}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
+                  
+                  {/* Mobile Social Links */}
+                  <div className="flex space-x-4 pt-4 border-t border-[#44334a]">
+                    {socialLinks.map((social) => (
+                      <a
+                        key={social.name}
+                        href={social.href}
+                        className="w-8 h-8 rounded-full bg-[#44334a] flex items-center justify-center text-[#7aa9c0] hover:text-[#c0b6e5] hover:bg-[#4f8489] transition-colors"
+                        aria-label={social.name}
+                      >
+                        {social.icon}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </nav>
     </>
   )
 }

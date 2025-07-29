@@ -6,9 +6,6 @@ const nextConfig = {
     domains: ['localhost'],
     unoptimized: true,
   },
-  experimental: {
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig
