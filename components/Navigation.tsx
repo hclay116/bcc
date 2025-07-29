@@ -50,28 +50,10 @@ const navigationItems = [
 const socialLinks = [
   {
     name: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/blackcreativeco/',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.321-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.42-3.321c.873-.873 2.024-1.297 3.321-1.297s2.448.424 3.321 1.297c.93.873 1.42 2.024 1.42 3.321s-.49 2.448-1.42 3.244c-.873.807-2.024 1.297-3.321 1.297zm7.598-10.652c-.424 0-.807-.163-1.103-.49-.296-.326-.424-.709-.424-1.133 0-.424.128-.807.424-1.103.296-.326.679-.49 1.103-.49.424 0 .807.164 1.103.49.296.296.424.679.424 1.103 0 .424-.128.807-.424 1.133-.296.327-.679.49-1.103.49z"/>
-      </svg>
-    ),
-  },
-  {
-    name: 'Twitter',
-    href: '#',
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-    ),
-  },
-  {
-    name: 'Facebook',
-    href: '#',
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
       </svg>
     ),
   },
@@ -88,14 +70,14 @@ export default function Navigation() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-stanford text-white shadow-2xl hidden lg:flex flex-col">
+      <nav className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-psychedelic-main text-psychedelic-soft-white shadow-2xl hidden lg:flex flex-col grain-texture">
         {/* Logo Section */}
         <div className="p-8 border-b border-white/10">
           <Link href="/" className="flex items-center group">
-            <div className="w-12 h-12 bg-gradient-gold rounded-xl flex items-center justify-center mr-4 shadow-lg group-hover:-translate-y-1 transition-all duration-300">
-              <PaletteIcon className="w-7 h-7 text-white" />
+            <div className="w-12 h-12 bg-gradient-teal-swirl rounded-xl flex items-center justify-center mr-4 shadow-neon-glow group-hover:-translate-y-1 transition-all duration-300 retro-glow">
+              <PaletteIcon className="w-7 h-7 text-psychedelic-deep-eggplant" />
             </div>
-            <span className="text-2xl font-bold tracking-tight">SBCC</span>
+            <span className="text-2xl font-bold tracking-tight text-curved-serif text-psychedelic-glow">SBCC</span>
           </Link>
         </div>
 
@@ -145,7 +127,7 @@ export default function Navigation() {
       {/* Mobile Navigation Toggle */}
       <button
         onClick={toggleMobileMenu}
-        className="fixed top-6 left-6 z-50 lg:hidden w-12 h-12 bg-gradient-stanford rounded-xl flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        className="fixed top-6 left-6 z-50 lg:hidden w-12 h-12 bg-gradient-psychedelic-main rounded-xl flex items-center justify-center text-psychedelic-soft-white shadow-neon-glow hover:shadow-xl transition-all duration-300 retro-glow"
         aria-label="Toggle navigation menu"
       >
         {isMobileMenuOpen ? (
@@ -175,7 +157,7 @@ export default function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-stanford text-white shadow-2xl lg:hidden flex flex-col"
+              className="fixed top-0 left-0 z-50 h-screen w-[280px] bg-gradient-psychedelic-main text-psychedelic-soft-white shadow-2xl lg:hidden flex flex-col grain-texture"
             >
               {/* Logo Section */}
               <div className="p-8 border-b border-white/10 mt-16">

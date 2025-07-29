@@ -86,9 +86,10 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      <section ref={heroRef} className="min-h-screen flex items-center bg-gradient-psychedelic-main relative overflow-hidden grain-texture">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-creative opacity-5 transform skew-x-12 origin-top-right" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-electric-glow opacity-20 transform skew-x-12 origin-top-right y2k-blur" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-teal-swirl opacity-15 transform -skew-x-12 origin-bottom-left" />
         
         <div className="container mx-auto px-6 lg:px-8">
           <motion.div 
@@ -98,12 +99,14 @@ export default function HomePage() {
             animate={heroInView ? "visible" : "hidden"}
           >
             {/* Hero Text */}
-            <motion.div variants={itemVariants} className="space-y-8">
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Stanford Black{' '}
-                <span className="text-gradient">Creative Collective</span>
+            <motion.div variants={itemVariants} className="space-y-8 z-10 relative">
+              <h1 className="text-4xl lg:text-6xl font-bold text-psychedelic-soft-white leading-tight text-curved-serif">
+                Stanford{' '}
+                <span className="text-psychedelic-glow retro-glow">BLACK</span>{' '}
+                <span className="text-psychedelic-neon-mint">CREATIVE</span>{' '}
+                <span className="text-psychedelic-electric-lavender">COLLECTIVE</span>
               </h1>
-              <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+              <p className="text-xl lg:text-2xl text-psychedelic-soft-white/90 leading-relaxed">
                 Celebrating and amplifying Black creativity, culture, and artistic excellence at Stanford University
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -118,11 +121,11 @@ export default function HomePage() {
             </motion.div>
 
             {/* Hero Visual */}
-            <motion.div variants={itemVariants} className="flex justify-center">
+            <motion.div variants={itemVariants} className="flex justify-center z-10 relative">
               <div className="relative w-80 h-80">
-                <div className="absolute w-48 h-48 bg-gradient-stanford rounded-3xl shadow-2xl animate-float" />
-                <div className="absolute w-32 h-32 bg-gradient-gold rounded-3xl shadow-xl top-16 right-0 animate-float-delayed" />
-                <div className="absolute w-28 h-28 bg-gradient-teal rounded-3xl shadow-lg bottom-0 left-1/2 transform -translate-x-1/2 animate-float-delayed-2" />
+                <div className="absolute w-48 h-48 bg-gradient-teal-swirl rounded-3xl shadow-neon-glow animate-float retro-glow" />
+                <div className="absolute w-32 h-32 bg-gradient-electric-glow rounded-3xl shadow-psychedelic top-16 right-0 animate-float-delayed" />
+                <div className="absolute w-28 h-28 bg-gradient-dusty-violet rounded-3xl shadow-neon-glow bottom-0 left-1/2 transform -translate-x-1/2 animate-float-delayed-2" />
               </div>
             </motion.div>
           </motion.div>
@@ -338,21 +341,17 @@ export default function HomePage() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Connect</h4>
               <div className="flex space-x-4">
-                {[
-                  { name: 'Instagram', href: '#' },
-                  { name: 'Twitter', href: '#' },
-                  { name: 'Facebook', href: '#' }
-                ].map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-creative-gold transition-all duration-300"
-                    aria-label={social.name}
-                  >
-                    <span className="sr-only">{social.name}</span>
-                    {/* Social icons would go here */}
-                  </a>
-                ))}
+                <a
+                  href="https://www.instagram.com/blackcreativeco/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gradient-electric-glow transition-all duration-300 retro-glow"
+                  aria-label="Instagram"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.321-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.42-3.321c.873-.873 2.024-1.297 3.321-1.297s2.448.424 3.321 1.297c.93.873 1.42 2.024 1.42 3.321s-.49 2.448-1.42 3.244c-.873.807-2.024 1.297-3.321 1.297zm7.598-10.652c-.424 0-.807-.163-1.103-.49-.296-.326-.424-.709-.424-1.133 0-.424.128-.807.424-1.103.296-.326.679-.49 1.103-.49.424 0 .807.164 1.103.49.296.296.424.679.424 1.103 0 .424-.128.807-.424 1.133-.296.327-.679.49-1.103.49z"/>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
