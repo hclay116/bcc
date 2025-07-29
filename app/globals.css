@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nav-width: 280px;
+  --nav-width-collapsed: 80px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Source Sans Pro', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8C1515;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #651010;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite 2s;
+}
+
+.animate-float-delayed-2 {
+  animation: float 6s ease-in-out infinite 4s;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow-delayed {
+  animation: pulse-slow 4s ease-in-out infinite 1s;
+}
+
+.animate-pulse-slow-delayed-2 {
+  animation: pulse-slow 4s ease-in-out infinite 2s;
+}
+
+/* Psychedelic Y2K Gradient backgrounds */
+.bg-gradient-stanford {
+  background: linear-gradient(135deg, #8C1515 0%, #651010 100%);
+}
+
+.bg-gradient-psychedelic-main {
+  background: linear-gradient(135deg, #3E2A49 0%, #6D3D66 50%, #8669A3 100%);
+}
+
+.bg-gradient-teal-swirl {
+  background: linear-gradient(135deg, #438F82 0%, #91E4BD 100%);
+}
+
+.bg-gradient-electric-glow {
+  background: linear-gradient(135deg, #C4B4E2 0%, #91E4BD 50%, #438F82 100%);
+}
+
+.bg-gradient-dusty-violet {
+  background: linear-gradient(135deg, #6D3D66 0%, #8669A3 100%);
+}
+
+.bg-gradient-creative {
+  background: linear-gradient(135deg, #438F82 0%, #C4B4E2 100%);
+}
+
+/* Legacy gradients for compatibility */
+.bg-gradient-gold {
+  background: linear-gradient(135deg, #DAA520 0%, #EA580C 100%);
+}
+
+.bg-gradient-purple {
+  background: linear-gradient(135deg, #DAA520 0%, #6B46C1 100%);
+}
+
+.bg-gradient-teal {
+  background: linear-gradient(135deg, #0F766E 0%, #6B46C1 100%);
+}
+
+/* Psychedelic Y2K Button styles */
+.btn-primary {
+  @apply bg-gradient-psychedelic-main text-psychedelic-soft-white font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:animate-glow;
+  filter: drop-shadow(0 0 10px rgba(196, 180, 226, 0.3));
+}
+
+.btn-secondary {
+  @apply bg-gradient-teal-swirl text-psychedelic-deep-eggplant font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:animate-glow;
+  filter: drop-shadow(0 0 10px rgba(145, 228, 189, 0.3));
+}
+
+.btn-outline {
+  @apply border-2 border-psychedelic-electric-lavender text-psychedelic-electric-lavender font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:bg-psychedelic-electric-lavender hover:text-psychedelic-deep-eggplant hover:-translate-y-1;
+  filter: drop-shadow(0 0 5px rgba(196, 180, 226, 0.2));
+}
+
+/* Psychedelic Text Effects */
+.text-psychedelic-glow {
+  color: #C4B4E2;
+  text-shadow: 0 0 10px rgba(196, 180, 226, 0.5), 0 0 20px rgba(196, 180, 226, 0.3);
+}
+
+.text-curved-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Navigation styles */
+.nav-link-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #DAA520;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+}
+
+/* Text gradients */
+.text-gradient {
+  background: linear-gradient(135deg, #8C1515 0%, #DAA520 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #8C1515;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile navigation overlay */
+.mobile-nav-overlay {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-stanford-red focus:ring-offset-2;
+}
+
+/* Psychedelic Shadows and Effects */
+.shadow-stanford {
+  box-shadow: 0 10px 25px -5px rgba(140, 21, 21, 0.1), 0 8px 10px -6px rgba(140, 21, 21, 0.1);
+}
+
+.shadow-psychedelic {
+  box-shadow: 0 10px 25px -5px rgba(196, 180, 226, 0.2), 0 8px 10px -6px rgba(67, 143, 130, 0.1);
+}
+
+.shadow-neon-glow {
+  box-shadow: 0 0 20px rgba(145, 228, 189, 0.3), 0 0 40px rgba(196, 180, 226, 0.2);
+}
+
+/* Grain Texture Effect */
+.grain-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 25% 75%, rgba(255,255,255,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 25%, rgba(0,0,0,0.05) 0%, transparent 50%);
+  background-size: 100px 100px, 80px 80px, 120px 120px, 90px 90px;
+  background-position: 0 0, 40px 40px, 60px 60px, 20px 20px;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+}
+
+/* Y2K Blur Effects */
+.y2k-blur {
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+}
+
+.retro-glow {
+  filter: drop-shadow(0 0 10px currentColor) saturate(120%) brightness(110%);
+}
+
+/* Psychedelic Grid Pattern */
+.psychedelic-grid {
+  background-image: 
+    linear-gradient(rgba(196, 180, 226, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 180, 226, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
