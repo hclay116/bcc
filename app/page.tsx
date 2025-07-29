@@ -261,6 +261,88 @@ export default function HomePage() {
               />
             </svg>
           </motion.div>
+          
+          {/* Additional ripple waves */}
+          <motion.div
+            animate={{
+              scale: [0.9, 1.1, 0.9],
+              opacity: [0.1, 0.3, 0.1]
+            }}
+            transition={{
+              duration: 14,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 6
+            }}
+            className="absolute top-0 left-0 w-full h-full"
+          >
+            <svg viewBox="0 0 1200 800" className="w-full h-full">
+              <defs>
+                <pattern id="grain5" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+                  <circle cx="6" cy="6" r="0.5" fill="#4d716c" opacity="0.2"/>
+                  <circle cx="2" cy="2" r="0.2" fill="#7aa9c0" opacity="0.15"/>
+                  <circle cx="10" cy="10" r="0.3" fill="#c0b6e5" opacity="0.25"/>
+                </pattern>
+                <linearGradient id="wave5" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#4d716c" />
+                  <stop offset="25%" stopColor="#7aa9c0" />
+                  <stop offset="50%" stopColor="#c0b6e5" />
+                  <stop offset="75%" stopColor="#ac84ac" />
+                  <stop offset="100%" stopColor="#4f8489" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0,550 Q600,450 1200,550 L1200,800 L0,800 Z"
+                fill="url(#wave5)"
+                opacity="0.15"
+              />
+              <path
+                d="M0,600 Q700,500 1200,600 L1200,800 L0,800 Z"
+                fill="url(#grain5)"
+                opacity="0.2"
+              />
+            </svg>
+          </motion.div>
+          
+          <motion.div
+            animate={{
+              scale: [1.1, 0.9, 1.1],
+              opacity: [0.05, 0.2, 0.05]
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 10
+            }}
+            className="absolute top-0 left-0 w-full h-full"
+          >
+            <svg viewBox="0 0 1200 800" className="w-full h-full">
+              <defs>
+                <pattern id="grain6" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                  <circle cx="4" cy="4" r="0.3" fill="#ac84ac" opacity="0.15"/>
+                  <circle cx="1" cy="1" r="0.1" fill="#4f8489" opacity="0.1"/>
+                  <circle cx="7" cy="7" r="0.2" fill="#7aa9c0" opacity="0.2"/>
+                </pattern>
+                <linearGradient id="wave6" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#ac84ac" />
+                  <stop offset="33%" stopColor="#4f8489" />
+                  <stop offset="66%" stopColor="#7aa9c0" />
+                  <stop offset="100%" stopColor="#4d716c" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0,650 Q500,550 1200,650 L1200,800 L0,800 Z"
+                fill="url(#wave6)"
+                opacity="0.1"
+              />
+              <path
+                d="M0,700 Q600,600 1200,700 L1200,800 L0,800 Z"
+                fill="url(#grain6)"
+                opacity="0.15"
+              />
+            </svg>
+          </motion.div>
         </div>
         
         <div className="container mx-auto px-6 lg:px-8 relative z-10">
@@ -272,14 +354,12 @@ export default function HomePage() {
           >
             {/* Hero Text */}
             <motion.div variants={itemVariants} className="space-y-8">
-              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                Stanford{' '}
-                <span className="text-[#c0b6e5]">BLACK</span>{' '}
-                <span className="text-[#7aa9c0]">CREATIVE</span>{' '}
-                <span className="text-[#ac84ac]">COLLECTIVE</span>
+                            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+                Black Creative Collective @Stanford
               </h1>
-                  <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
-                Celebrating and amplifying Black creativity, culture, and artistic excellence at Stanford University
+              <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
+                Celebrating Black Diasporic Art at Stanford.<br />
+                the Movement is the Collective.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/about" className="bg-[#c0b6e5] text-[#08080a] px-8 py-3 rounded-lg font-semibold hover:bg-[#ac84ac] transition-colors inline-flex items-center justify-center">
@@ -292,122 +372,83 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Hero Visual - Wavy Design */}
+            {/* Hero Visual - Ripple Effect */}
             <motion.div variants={itemVariants} className="flex justify-center">
               <div className="relative w-80 h-80">
+                {/* Ripple waves emanating from center */}
                 <motion.div
                   animate={{
-                    y: [0, -25, 0],
-                    rotate: [0, 6, 0]
+                    scale: [0.8, 1.2, 0.8],
+                    opacity: [0.3, 0.6, 0.3]
                   }}
                   transition={{
-                    duration: 10,
+                    duration: 8,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
                   className="absolute inset-0"
                 >
-                  <svg viewBox="0 0 400 200" className="w-full h-full">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
                     <defs>
-                      <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <linearGradient id="ripple1" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="#7aa9c0" />
-                        <stop offset="33%" stopColor="#c0b6e5" />
-                        <stop offset="66%" stopColor="#ac84ac" />
+                        <stop offset="25%" stopColor="#c0b6e5" />
+                        <stop offset="50%" stopColor="#ac84ac" />
+                        <stop offset="75%" stopColor="#4f8489" />
                         <stop offset="100%" stopColor="#4d716c" />
                       </linearGradient>
                     </defs>
-                    <path
-                      d="M10,100 Q30,60 50,100 T90,100 T130,100 T170,100"
-                      stroke="url(#curve1)"
-                      strokeWidth="4"
-                      fill="none"
-                      opacity="0.9"
-                    />
-                    <path
-                      d="M15,120 Q35,80 55,120 T95,120 T135,120 T175,120"
-                      stroke="#4f8489"
-                      strokeWidth="3"
-                      fill="none"
-                      opacity="0.7"
-                    />
-                    <path
-                      d="M5,80 Q25,40 45,80 T85,80 T125,80 T165,80"
-                      stroke="#ac84ac"
-                      strokeWidth="3"
-                      fill="none"
-                      opacity="0.8"
-                    />
+                    <circle cx="100" cy="100" r="80" stroke="url(#ripple1)" strokeWidth="2" fill="none" opacity="0.4"/>
+                    <circle cx="100" cy="100" r="60" stroke="#c0b6e5" strokeWidth="1.5" fill="none" opacity="0.5"/>
+                    <circle cx="100" cy="100" r="40" stroke="#ac84ac" strokeWidth="1" fill="none" opacity="0.6"/>
                   </svg>
                 </motion.div>
                 
                 <motion.div
                   animate={{
-                    y: [0, 20, 0],
-                    rotate: [0, -4, 0]
+                    scale: [1.2, 0.8, 1.2],
+                    opacity: [0.2, 0.5, 0.2]
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2
+                  }}
+                  className="absolute inset-0"
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <defs>
+                      <linearGradient id="ripple2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#c0b6e5" />
+                        <stop offset="33%" stopColor="#ac84ac" />
+                        <stop offset="66%" stopColor="#4f8489" />
+                        <stop offset="100%" stopColor="#4d716c" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" stroke="url(#ripple2)" strokeWidth="1.5" fill="none" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="70" stroke="#7aa9c0" strokeWidth="1" fill="none" opacity="0.4"/>
+                    <circle cx="100" cy="100" r="50" stroke="#4f8489" strokeWidth="0.8" fill="none" opacity="0.5"/>
+                  </svg>
+                </motion.div>
+                
+                <motion.div
+                  animate={{
+                    scale: [0.9, 1.1, 0.9],
+                    opacity: [0.4, 0.7, 0.4]
                   }}
                   transition={{
                     duration: 12,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 3
+                    delay: 4
                   }}
                   className="absolute inset-0"
                 >
                   <svg viewBox="0 0 200 200" className="w-full h-full">
-                    <defs>
-                      <linearGradient id="curve2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#c0b6e5" />
-                        <stop offset="25%" stopColor="#ac84ac" />
-                        <stop offset="50%" stopColor="#4f8489" />
-                        <stop offset="75%" stopColor="#4d716c" />
-                        <stop offset="100%" stopColor="#7aa9c0" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M20,140 Q40,100 60,140 T100,140 T140,140 T180,140"
-                      stroke="url(#curve2)"
-                      strokeWidth="3"
-                      fill="none"
-                      opacity="0.6"
-                    />
-                    <path
-                      d="M10,60 Q30,20 50,60 T90,60 T130,60 T170,60"
-                      stroke="#7aa9c0"
-                      strokeWidth="2"
-                      fill="none"
-                      opacity="0.7"
-                    />
-                  </svg>
-                </motion.div>
-                
-                <motion.div
-                  animate={{
-                    y: [0, -15, 0],
-                    rotate: [0, 3, 0]
-                  }}
-                  transition={{
-                    duration: 14,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 6
-                  }}
-                  className="absolute inset-0"
-                >
-                  <svg viewBox="0 0 200 200" className="w-full h-full">
-                    <path
-                      d="M5,160 Q25,120 45,160 T85,160 T125,160 T165,160"
-                      stroke="#4f8489"
-                      strokeWidth="2"
-                      fill="none"
-                      opacity="0.5"
-                    />
-                    <path
-                      d="M15,40 Q35,0 55,40 T95,40 T135,40 T175,40"
-                      stroke="#ac84ac"
-                      strokeWidth="2"
-                      fill="none"
-                      opacity="0.6"
-                    />
+                    <circle cx="100" cy="100" r="100" stroke="#4d716c" strokeWidth="1" fill="none" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="80" stroke="#ac84ac" strokeWidth="0.8" fill="none" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="60" stroke="#7aa9c0" strokeWidth="0.6" fill="none" opacity="0.4"/>
                   </svg>
                 </motion.div>
               </div>
@@ -665,7 +706,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-[#44334a] pt-8 text-center text-[#7aa9c0]">
-            <p>&copy; 2024 Stanford Black Creative Collective. All rights reserved.</p>
+            <p>Stanford Black Creative Collective. </p>
           </div>
         </div>
       </footer>
